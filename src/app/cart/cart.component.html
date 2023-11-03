@@ -1,0 +1,38 @@
+<div class="container d-flex flex-column justify-content-center align-items-center">
+
+  <ng-container *ngIf="lista.length > 0; else cartEmpty">
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of lista">
+        {{ item.oggetto.nome }}
+        <span>{{ item.oggetto.prezzo | price:2:'$' }}</span>
+        <span class="badge badge-primary badge-pill">{{ item.quantitaCarrello }}</span>
+        <button class="btn-close cart-remove" (click)="removeItem(item.oggetto.id)"></button>
+      </li>
+    </ul>
+
+    <h4 class="m-3">Totale:&nbsp;{{ totale | price:2:'$' }}</h4>
+
+    <button class="btn btn-danger m-2"
+            (click)="collapse.toggle()"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="collapseAcquista">
+      Acquista
+    </button>
+  </ng-container>
+
+  <div class="mt-3" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <div class="card">
+      <div class="card-header">
+        <h4>Inserisci i dati per l'acquisto</h4>
+      </div>
+      <div class="card-body">
+        <app-acquista [totale]="totale" (acquistoEffetuato)="onAcquista()"></app-acquista>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #cartEmpty>
+    <h1>Cart is empty!</h1>
+    <button class="btn btn-success m-2" routerLink="/products">Continua con gli acquisti</button>
+  </ng-template>
+</div>

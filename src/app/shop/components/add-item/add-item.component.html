@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add new Item</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <!-- form -->
+  <form [formGroup]="form" class="d-flex flex-row justify-content-around flex-wrap align-items-center">
+    <div>
+      <label>Title</label>
+      <input class="form-control" type="text" formControlName="title" />
+    </div>
+    <div>
+      <label>Price</label>
+      <input class="form-control" type="number" formControlName="price" />
+    </div>
+    <div>
+      <label>Description</label>
+      <textarea class="form-control" type="text" formControlName="description" rows="2"></textarea>
+    </div>
+    <div>
+      <label>Category</label>
+      <input class="form-control" type="text" formControlName="category" />
+    </div>
+    <ng-container formGroupName="rating">
+      <div>
+        <label>Rate</label>
+        <input class="form-control" type="number" formControlName="rate" />
+      </div>
+      <div>
+        <label>Count</label>
+        <input class="form-control" type="number" formControlName="count" />
+      </div>
+    </ng-container>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cancel')">Annulla</button>
+  <button type="button" class="btn btn-outline-dark" (click)="onSave()" [disabled]="!form.valid">Salva</button>
+</div>

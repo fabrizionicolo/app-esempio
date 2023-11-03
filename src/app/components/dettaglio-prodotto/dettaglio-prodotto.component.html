@@ -1,0 +1,6 @@
+<div class="card shadow p-3" style="width: 350px;">
+  <button class="btn-close" [routerLink]="['/products']"></button>
+  <h2>{{prodotto?.nome}}</h2>
+  <span>{{prodotto?.descrizione}}</span>
+  <button class="btn btn-warning m-2" (click)="addOnCart()">Aggiungi al carrello</button>
+</div>

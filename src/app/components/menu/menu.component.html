@@ -1,0 +1,10 @@
+<div ngbDropdown class="d-inline-block">
+  <button type="button" class="btn btn-outline-info" id="dropdownBasic1" ngbDropdownToggle>
+    Menu
+  </button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <ng-container *ngFor="let voce of vociMenu">
+      <button ngbDropdownItem routerLink="{{voce.route}}" *ngIf="checkRuolo(voce.auth)">{{voce.title}}</button>
+    </ng-container>
+  </div>
+</div>

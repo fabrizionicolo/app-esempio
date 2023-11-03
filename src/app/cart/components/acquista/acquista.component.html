@@ -1,0 +1,42 @@
+<form class="container row" [formGroup]="acquistaForm" (ngSubmit)="acquista()">
+
+  <div class="col-6">
+    <label><b>Dati Pagamento:</b></label>
+    <input type="text" class="form-control m-2" placeholder="Intestatario" formControlName="intestatario"
+           [ngClass]="{'is-invalid': !intestatario?.valid && intestatario?.dirty }" />
+    <input type="text" class="form-control m-2" placeholder="Numero Carta" formControlName="numeroCarta"
+           [ngClass]="{'is-invalid': checkValidate('numeroCarta')}" />
+
+    <label><b>Dati Spedizione:</b></label>
+    <ng-container formGroupName="indirizzoSpedizione">
+      <input type="text" class="form-control m-2" placeholder="Via o Piazza" formControlName="via"
+             [ngClass]="{'is-invalid': checkValidate('indirizzoSpedizione.via')}" />
+      <input type="text" class="form-control m-2" placeholder="Civico" formControlName="civico"
+             [ngClass]="{'is-invalid': checkValidate('indirizzoSpedizione.civico')}" />
+      <input type="text" class="form-control m-2" placeholder="Città" formControlName="citta"
+             [ngClass]="{'is-invalid': checkValidate('indirizzoSpedizione.citta')}" />
+    </ng-container>
+  </div>
+
+  <div class="col-6">
+    <label><b>Contatti:</b></label>
+    <input class="form-control m-2" type="text" formControlName="email" placeholder="E-mail" 
+             [ngClass]="{'is-invalid': checkValidate('email')}" />
+    <div class="row" formArrayName="cellulari">
+      <div class="col-10">
+        <ng-container *ngFor="let cellulare of getCellulari().controls; let i = index;">
+          <input type="text" class="form-control m-2" placeholder="Cellulare" [formControlName]="i"
+                 [ngClass]="{'is-invalid': !cellulare.valid }" />
+        </ng-container>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-success m-2" (click)="addCellulare()">+</button>
+      </div>
+    </div>
+  </div>
+  
+
+  <span class="m-2">Totale: {{ totale | price:2:'$' }}</span><br />
+  <button class="btn btn-warning m-2" [disabled]="!acquistaForm.valid">Conferma</button>
+
+</form>

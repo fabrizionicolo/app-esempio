@@ -1,0 +1,17 @@
+.card {
+  width: 300px;
+  height: 125px;
+  transition: 0.5s;
+
+  &.tecnologia {
+    background-color: #0dcaf070;
+  }
+
+  &.abbigliamento {
+    background-color: #1987548a;
+  }
+
+  &.elettrodomestici {
+    background-color: #dc354599;
+  }
+}

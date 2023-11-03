@@ -1,0 +1,34 @@
+<div class="row">
+
+  <div class="col-6">
+    <ng-container *ngFor="let prodotto of prodotti; let i = index">
+
+      <!-- *ngIf="prodotto.descrizione ;else tecnologia" -->
+      <!-- [ngStyle]="{ 'background-color' : prodotto.categoria == 0 ? '#0dcaf070' : (prodotto.categoria == 1 ? '#dc354599' : '#1987548a') }" -->
+      <div class="card shadow d-flex flex-column jusify-content-start align-items-start mb-2"
+           appHoverCard
+           [ngClass]="{ 'tecnologia' : prodotto.categoria == 0, 'abbigliamento' : prodotto.categoria == 1, 'elettrodomestici' : prodotto.categoria == 2 }"
+           (click)="goToDetail(prodotto.id, prodotto.categoria)">
+        <h4 class="m-3">{{ prodotto.nome }}</h4>
+
+        <span style="margin-left: 18px" *ngIf="prodotto.descrizione">
+          {{ prodotto.descrizione | cutText:20 }}
+        </span>
+
+        <span style="margin-left: 18px">
+          {{ prodotto.prezzo | price:2:'$' }}
+        </span>
+      </div>
+
+    </ng-container>
+
+    <ng-template #tecnologia>
+      <p>Descrizione non presente...</p>
+    </ng-template>
+  </div>
+
+  <div class="col-6">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
