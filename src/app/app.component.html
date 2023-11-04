@@ -41,7 +41,8 @@
 
 <div class="content" role="main">
 
-  <app-loader *ngIf="loaderService.getShowLoader()"></app-loader>
+  
+  <app-loader *ngIf="showLoader"></app-loader>
 
   <router-outlet></router-outlet>
 

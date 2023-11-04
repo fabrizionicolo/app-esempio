@@ -1,9 +1,4 @@
-import { AfterContentChecked, AfterViewChecked, OnDestroy, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { OnChanges } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
-import { AfterContentInit, DoCheck, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Amministratore, Operatore } from '../assets/profili';
 import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
 import { ProfileService } from './services/profile.service';
@@ -14,20 +9,20 @@ import { LoaderService } from './shared/components/loader/loader.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  constructor(public authService: AuthService, public profileService: ProfileService, private cartService: CartService,
-    public loaderService: LoaderService) { }
-
-  numeroProdottiNelCarrello: number = 0;
-
-  onLogout(): void {
-    this.authService.loggout();
-  }
-
-  ngOnInit(): void {
+  constructor(public authService: AuthService, public profileService: ProfileService, private cartService: CartService, public loaderService: LoaderService) {
     this.cartService.cartSubject.subscribe(
       next => this.numeroProdottiNelCarrello = this.cartService.getCartLenght()
     )
+
+    this.loaderService.showLoader.subscribe( x => this.showLoader = x );
+  }
+
+  numeroProdottiNelCarrello: number = 0;
+  showLoader: boolean = false;
+
+  onLogout(): void {
+    this.authService.loggout();
   }
 }

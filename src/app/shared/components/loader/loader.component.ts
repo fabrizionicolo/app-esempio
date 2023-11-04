@@ -1,4 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-loader',
@@ -19,17 +20,17 @@ export class LoaderComponent implements OnInit {
 })
 export class LoaderService {
 
-  showLoader: boolean = false;
+  showLoader: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   show(): void {
-    this.showLoader = true;
+    this.showLoader.next(true);
   }
 
   hide(): void {
-    this.showLoader = false;
+    this.showLoader.next(false);
   }
 
-  getShowLoader(): boolean {
-    return this.showLoader;
+  getShowLoader(): Observable<boolean> {
+    return this.showLoader as Observable<boolean>;
   }
 }
